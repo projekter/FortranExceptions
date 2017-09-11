@@ -1,0 +1,23 @@
+module-whatis "Exception handler library for Intel Fortran"
+
+set base_dir "INSERT ABSOLUTE PATH TO BASE DIR HERE"
+
+prepend-path INCLUDE "${base_dir}/include/"
+if { $intel_target_arch eq "intel64" } {
+   prepend-path INCLUDE "${base_dir}/modules/x86-64"
+   prepend-path LIBRARY_PATH "{$base_dir}/lib/x86-64"
+} elseif { $intel_target_arch eq "ia32" } {
+   prepend-path INCLUDE "${base_dir}/modules/x86-32"
+   prepend-path LIBRARY_PATH "{$base_dir}/lib/x86-32"
+} else {
+   puts stderr "
+Unknown architecture: ${intel_target_arch}"
+   break
+}
+
+### Define help text:
+
+proc ModulesHelp { } {
+   puts stderr "
+This module makes available the exception handler library for Intel Fortran"
+}
